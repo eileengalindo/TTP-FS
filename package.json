@@ -7,13 +7,15 @@
     "express": "^4.17.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "sequelize": "^5.8.12"
   },
   "scripts": {
     "start-client": "react-scripts start",
     "server": "nodemon server",
     "build": "react-scripts build",
-    "dev": "concurrently \"npm run server\" \"npm run start-client\""
+    "dev": "concurrently \"npm run server\" \"npm run start-client\"",
+    "seed": "node script/seed.js"
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {
