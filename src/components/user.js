@@ -13,6 +13,7 @@ class Users extends Component {
       .then(res => res.json())
       .then(users => this.setState({ users }));
   }
+
   render() {
     return (
       <div>

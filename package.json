@@ -5,6 +5,7 @@
   "dependencies": {
     "concurrently": "^4.1.0",
     "express": "^4.17.1",
+    "passport": "^0.4.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
@@ -17,7 +18,7 @@
     "dev": "concurrently \"npm run server\" \"npm run start-client\"",
     "seed": "node script/seed.js"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://127.0.0.1:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
