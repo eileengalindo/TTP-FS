@@ -4,7 +4,6 @@ module.exports = router;
 
 router.get('/', async (req, res, next) => {
   try {
-    console.log('getting users');
     const users = await User.findAll();
     res.json(users);
   } catch (error) {
@@ -23,5 +22,18 @@ router.post('/login', async (req, res, next) => {
     }
   } catch (err) {
     next(err);
+  }
+});
+
+router.post('/register', async (req, res, next) => {
+  try {
+    const user = await User.create(req.body);
+    req.login(user, err => (err ? next(err) : res.json(user)));
+  } catch (err) {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      res.status(401).send('User already exists');
+    } else {
+      next(err);
+    }
   }
 });

@@ -5,8 +5,8 @@ export default class registerForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: ''
     };
@@ -23,10 +23,11 @@ export default class registerForm extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    let { firstname, lastname, email, password } = this.state;
+    let { firstName, lastName, email, password } = this.state;
+    console.log('firstname', firstName);
     let { data } = await axios.post('/api/users/register', {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       password
     });
@@ -42,8 +43,8 @@ export default class registerForm extends Component {
             First Name
             <input
               type='text'
-              name='firstname'
-              value={this.state.firstname}
+              name='firstName'
+              value={this.state.firstName}
               onChange={this.handleChange}
             />
           </label>
@@ -51,8 +52,8 @@ export default class registerForm extends Component {
             Last Name
             <input
               type='text'
-              name='firstname'
-              value={this.state.lastname}
+              name='lastName'
+              value={this.state.lastName}
               onChange={this.handleChange}
             />
           </label>
