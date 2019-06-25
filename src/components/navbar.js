@@ -21,12 +21,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
           <IconButton
+            href='/home'
             edge='start'
             className={classes.menuButton}
             color='inherit'
@@ -37,10 +37,10 @@ export default function ButtonAppBar() {
           <Typography variant='h6' className={classes.title}>
             tStocks
           </Typography>
-          <Button color='inherit' href='/login'>
-            Login
+          <Button color='inherit' href='/login' onclick='return false'>
+            Log In
           </Button>
-          <Button color='inherit' href='/register'>
+          <Button color='inherit' href='/register' onclick='return false'>
             Register
           </Button>
         </Toolbar>

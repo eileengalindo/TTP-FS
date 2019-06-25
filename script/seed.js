@@ -1,5 +1,6 @@
 const db = require('../server/db');
 const User = require('../server/db/models/user');
+const Stock = require('../server/db/models/stocks');
 
 async function seed() {
   await db.sync({ force: true });
@@ -29,6 +30,32 @@ async function seed() {
     })
   ]);
   console.log(`seeded ${users.length} users`);
+
+  const stocks = await Promise.all([
+    Stock.create({
+      ticker: 'APPL',
+      quantity: 100,
+      action: 'buy',
+      totalValue: 19571,
+      userId: 1
+    }),
+    Stock.create({
+      ticker: 'FB',
+      quantity: 52,
+      action: 'buy',
+      totalValue: 980148,
+      userId: 1
+    }),
+    Stock.create({
+      ticker: 'TWTR',
+      quantity: 102,
+      action: 'sell',
+      totalValue: 354246,
+      userId: 2
+    })
+  ]);
+
+  console.log(`seeded ${stocks.length} stocks`);
 }
 
 async function runSeed() {
