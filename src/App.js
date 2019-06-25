@@ -1,13 +1,12 @@
 import React from 'react';
-import Login from './components/login-form';
-import Users from './components/user';
+import Routes from './routes';
+
 import './App.css';
 
 function App() {
   return (
     <div>
-      <Login />
-      {/* <Users /> */}
+      <Routes />
     </div>
   );
 }

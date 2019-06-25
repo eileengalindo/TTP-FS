@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import history from '../history';
 export default class loginForm extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +25,7 @@ export default class loginForm extends Component {
     console.log(email);
     let { data } = await axios.post('/api/users/login', { email: email });
     console.log(data);
+    history.push('/home');
   };
 
   render() {
