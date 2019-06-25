@@ -37,8 +37,10 @@ export default function ButtonAppBar() {
           <Typography variant='h6' className={classes.title}>
             tStocks
           </Typography>
-          <Button color='inherit'>Login</Button>
-          <Button color='inherit' href='/'>
+          <Button color='inherit' href='/login'>
+            Login
+          </Button>
+          <Button color='inherit' href='/register'>
             Register
           </Button>
         </Toolbar>
