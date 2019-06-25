@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
   try {
-    console.log('in back end route', req.body.email);
+    console.log('req.session', req.session);
     const user = await User.findOne({ where: { email: req.body.email } });
     if (!user) {
       console.log('No such user found:', req.body.email);
