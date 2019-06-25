@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
-
-// import { Home, loginForm } from './components';
+import { Route, Switch } from 'react-router-dom';
 import loginForm from './components/login-form';
 import Home from './components/home';
 
