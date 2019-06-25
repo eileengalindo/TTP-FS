@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,24 +26,31 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          <IconButton
-            href='/home'
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='Menu'
-          >
-            <MenuIcon />
-          </IconButton>
+          <Link to='/home' style={{ textDecoration: 'none', color: '#FFF' }}>
+            <IconButton
+              href='/home'
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              aria-label='Menu'
+            >
+              <MenuIcon />
+            </IconButton>
+          </Link>
           <Typography variant='h6' className={classes.title}>
             tStocks
           </Typography>
-          <Button color='inherit' href='/login' onclick='return false'>
-            Log In
-          </Button>
-          <Button color='inherit' href='/register' onclick='return false'>
-            Register
-          </Button>
+          <Link
+            to='/register'
+            style={{ textDecoration: 'none', color: '#FFF' }}
+          >
+            <Button color='inherit' containerElement={<Link to='/login' />}>
+              Log In
+            </Button>
+          </Link>
+          <Link to='/login' style={{ textDecoration: 'none', color: '#FFF' }}>
+            <Button color='inherit'>Register </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
