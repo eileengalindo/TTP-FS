@@ -6,8 +6,15 @@ export default class Portfolio extends Component {
     super(props);
     this.state = {
       ticker: '',
-      quantity: 0
+      quantity: 0,
+      id: localStorage.getItem('id'),
+      stocks: []
     };
+  }
+  async componentDidMount() {
+    console.log(this.state.id);
+    let { data } = await axios.get(`/api/stocks/${this.state.id}`);
+    this.setState({ stocks: data });
   }
 
   handleChange = event => {
@@ -23,17 +30,26 @@ export default class Portfolio extends Component {
     );
     let stockPrice = data.quote.latestPrice;
     let totalPrice = quantity * stockPrice;
-    let id = localStorage.getItem('id');
-    await axios.post(`/api/users/${id}`, {
+    let newStock = await axios.post(`/api/users/${this.state.id}`, {
       ticker,
       quantity,
       totalPrice,
       action: 'buy'
     });
+    this.setState({ stocks: [...this.state.stocks, newStock.data] });
   };
   render() {
     return (
       <div>
+        {this.state.stocks.map(stock => {
+          return (
+            <div key={stock.id}>
+              <h2>Stock: {stock.ticker}</h2>
+              <h2># of shares: {stock.quantity}</h2>
+              <h2>Value: ${stock.totalValue}</h2>
+            </div>
+          );
+        })}
         <form onSubmit={this.handleSubmit}>
           <label htmlFor='ticker'>
             Ticker
@@ -49,7 +65,7 @@ export default class Portfolio extends Component {
             <input
               type='text'
               name='quantity'
-              value={this.state.quantity}
+              // value={this.state.quantity}
               onChange={this.handleChange}
             />
           </label>

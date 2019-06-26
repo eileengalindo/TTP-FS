@@ -26,29 +26,27 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          <Link to='/home' style={{ textDecoration: 'none', color: '#FFF' }}>
-            <IconButton
-              href='/home'
-              edge='start'
-              className={classes.menuButton}
-              color='inherit'
-              aria-label='Menu'
-            >
-              <MenuIcon />
-            </IconButton>
-          </Link>
+          <IconButton
+            component={Link}
+            to={'/home'}
+            href='/home'
+            edge='start'
+            className={classes.menuButton}
+            color='inherit'
+            aria-label='Menu'
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant='h6' className={classes.title}>
             tStocks
           </Typography>
-          <Link to='/login' style={{ textDecoration: 'none', color: '#FFF' }}>
-            <Button color='inherit'>Log In</Button>
-          </Link>
-          <Link
-            to='/register'
-            style={{ textDecoration: 'none', color: '#FFF' }}
-          >
-            <Button color='inherit'>Register </Button>
-          </Link>
+          <Button color='inherit' component={Link} to={'/login'}>
+            Log In
+          </Button>
+
+          <Button color='inherit' component={Link} to={'/register'}>
+            Register{' '}
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
