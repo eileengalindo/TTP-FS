@@ -44,14 +44,16 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/:id', async (req, res, next) => {
   try {
-    let stock = await Stock.create({
-      ticker: req.body.ticker,
-      quantity: req.body.quantity,
-      totalValue: req.body.totalPrice,
-      action: req.body.action,
-      userId: req.params.id
-    });
-    res.json(stock);
+    if (req.body.balance > req.body.totalPrice) {
+      let stock = await Stock.create({
+        ticker: req.body.ticker,
+        quantity: req.body.quantity,
+        totalValue: req.body.totalPrice,
+        action: req.body.action,
+        userId: req.params.id
+      });
+      res.json(stock);
+    }
   } catch (error) {
     next(error);
   }
@@ -59,16 +61,20 @@ router.post('/:id', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    let updatedUser = await User.update(
-      { balance: req.body.balance - req.body.totalPrice },
-      {
-        returning: true,
-        where: {
-          id: req.params.id
+    if (req.body.balance > req.body.totalPrice) {
+      let updatedUser = await User.update(
+        { balance: req.body.balance - req.body.totalPrice },
+        {
+          returning: true,
+          where: {
+            id: req.params.id
+          }
         }
-      }
-    );
-    res.json(updatedUser[1][0].dataValues.balance);
+      );
+      res.json(updatedUser[1][0].dataValues.balance);
+    } else {
+      res.status(400).send('Current balance is too low');
+    }
   } catch (error) {
     next(error);
   }
