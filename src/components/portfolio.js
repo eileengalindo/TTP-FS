@@ -23,6 +23,7 @@ export default class Portfolio extends Component {
       [event.target.name]: event.target.value
     });
   };
+
   handleSubmit = async event => {
     event.preventDefault();
     let { ticker, quantity, balance } = this.state;
@@ -31,7 +32,7 @@ export default class Portfolio extends Component {
       `https://api.iextrading.com/1.0/stock/${ticker}/book`
     );
     let stockPrice = data.quote.latestPrice;
-    let totalPrice = quantity * stockPrice;
+    let totalPrice = Number(quantity * stockPrice);
     let newStock = await axios.post(`/api/users/${this.state.id}`, {
       ticker,
       quantity,
@@ -49,11 +50,43 @@ export default class Portfolio extends Component {
       balance: updatedBalance.data
     });
   };
+
+  groupStocks() {
+    let a = this.state.stocks.slice(0);
+    let returnArr = [];
+    let hash = {};
+    for (let i = 0; i < a.length; i++) {
+      let stock = a[i];
+      let { quantity, totalValue, ticker } = stock;
+
+      if (!hash[ticker]) {
+        hash[ticker] = [quantity, Number(totalValue)];
+      } else {
+        let currentQuantity = hash[ticker][0];
+        let currentTotalValue = hash[ticker][1];
+        let newQuantity = currentQuantity + quantity;
+        let newTotalValue = Number(currentTotalValue) + Number(totalValue);
+
+        hash[ticker][0] = newQuantity;
+        hash[ticker][1] = newTotalValue;
+      }
+    }
+
+    for (let stock in hash) {
+      returnArr.push({
+        ticker: stock,
+        quantity: hash[stock][0],
+        totalValue: hash[stock][1]
+      });
+    }
+    return returnArr;
+  }
+
   render() {
     return (
       <div>
         <h2>Balance: ${this.state.balance}</h2>
-        {this.state.stocks.map(stock => {
+        {this.groupStocks().map(stock => {
           return (
             <div key={stock.id}>
               <h2>Stock: {stock.ticker}</h2>
@@ -65,21 +98,11 @@ export default class Portfolio extends Component {
         <form onSubmit={this.handleSubmit}>
           <label htmlFor='ticker'>
             Ticker
-            <input
-              type='text'
-              name='ticker'
-              value={this.state.ticker}
-              onChange={this.handleChange}
-            />
+            <input type='text' name='ticker' onChange={this.handleChange} />
           </label>
           <label htmlFor='quantity'>
             Quantity
-            <input
-              type='text'
-              name='quantity'
-              // value={this.state.quantity}
-              onChange={this.handleChange}
-            />
+            <input type='text' name='quantity' onChange={this.handleChange} />
           </label>
           <button type='submit'>Buy</button>
         </form>

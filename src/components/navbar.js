@@ -26,7 +26,7 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar position='static'>
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             component={Link}
             to={'/home'}
             href='/home'
@@ -36,16 +36,21 @@ export default function ButtonAppBar() {
             aria-label='Menu'
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
+          <Button color='inherit' component={Link} to={'/transactions'}>
+            Transactions
+          </Button>
+          <Button color='inherit' component={Link} to={'/portfolio'}>
+            Portfolio
+          </Button>
           <Typography variant='h6' className={classes.title}>
             tStocks
           </Typography>
           <Button color='inherit' component={Link} to={'/login'}>
             Log In
           </Button>
-
           <Button color='inherit' component={Link} to={'/register'}>
-            Register{' '}
+            Register
           </Button>
         </Toolbar>
       </AppBar>
