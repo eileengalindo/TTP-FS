@@ -15,7 +15,7 @@ const Stock = db.define('stock', {
     allowNull: false
   },
   totalValue: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false
   },
   userId: {

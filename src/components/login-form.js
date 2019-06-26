@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
-export default class loginForm extends Component {
+
+export default class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      user: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,10 +24,10 @@ export default class loginForm extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     let { email } = this.state;
-    console.log(email);
     let { data } = await axios.post('/api/users/login', { email: email });
-    console.log(data);
-    history.push('/home');
+    this.setState({ user: data });
+    localStorage.setItem('id', data.id);
+    history.push('/portfolio');
   };
 
   render() {

@@ -40,15 +40,13 @@ export default function ButtonAppBar() {
           <Typography variant='h6' className={classes.title}>
             tStocks
           </Typography>
+          <Link to='/login' style={{ textDecoration: 'none', color: '#FFF' }}>
+            <Button color='inherit'>Log In</Button>
+          </Link>
           <Link
             to='/register'
             style={{ textDecoration: 'none', color: '#FFF' }}
           >
-            <Button color='inherit' containerElement={<Link to='/login' />}>
-              Log In
-            </Button>
-          </Link>
-          <Link to='/login' style={{ textDecoration: 'none', color: '#FFF' }}>
             <Button color='inherit'>Register </Button>
           </Link>
         </Toolbar>
