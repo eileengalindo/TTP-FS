@@ -8,13 +8,14 @@ export default class Portfolio extends Component {
       ticker: '',
       quantity: 0,
       id: localStorage.getItem('id'),
-      stocks: []
+      stocks: [],
+      balance: 0
     };
   }
   async componentDidMount() {
-    console.log(this.state.id);
     let { data } = await axios.get(`/api/stocks/${this.state.id}`);
-    this.setState({ stocks: data });
+    let balance = await axios.get(`/api/users/${this.state.id}`);
+    this.setState({ stocks: data, balance: balance.data.balance });
   }
 
   handleChange = event => {
@@ -24,7 +25,8 @@ export default class Portfolio extends Component {
   };
   handleSubmit = async event => {
     event.preventDefault();
-    let { ticker, quantity } = this.state;
+    let { ticker, quantity, balance } = this.state;
+    ticker = ticker.toUpperCase();
     let { data } = await axios.get(
       `https://api.iextrading.com/1.0/stock/${ticker}/book`
     );
@@ -34,13 +36,23 @@ export default class Portfolio extends Component {
       ticker,
       quantity,
       totalPrice,
-      action: 'buy'
+      action: 'buy',
+      balance
     });
-    this.setState({ stocks: [...this.state.stocks, newStock.data] });
+    let updatedBalance = await axios.put(`/api/users/${this.state.id}`, {
+      totalPrice,
+      balance
+    });
+
+    this.setState({
+      stocks: [...this.state.stocks, newStock.data],
+      balance: updatedBalance.data
+    });
   };
   render() {
     return (
       <div>
+        <h2>Balance: ${this.state.balance}</h2>
         {this.state.stocks.map(stock => {
           return (
             <div key={stock.id}>

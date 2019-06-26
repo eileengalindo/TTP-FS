@@ -29,6 +29,19 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    let user = await User.findOne({
+      where: {
+        id: req.params.id
+      }
+    });
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/:id', async (req, res, next) => {
   try {
     let stock = await Stock.create({
@@ -39,6 +52,23 @@ router.post('/:id', async (req, res, next) => {
       userId: req.params.id
     });
     res.json(stock);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    let updatedUser = await User.update(
+      { balance: req.body.balance - req.body.totalPrice },
+      {
+        returning: true,
+        where: {
+          id: req.params.id
+        }
+      }
+    );
+    res.json(updatedUser[1][0].dataValues.balance);
   } catch (error) {
     next(error);
   }
