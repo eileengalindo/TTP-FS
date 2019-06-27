@@ -1,23 +1,53 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+// import throttle from 'lodash/throttle';
 
 export default class Portfolio extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ticker: '',
-      quantity: 0,
+      quantity: '',
       id: localStorage.getItem('id'),
       stocks: [],
       balance: 0
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   async componentDidMount() {
     let { data } = await axios.get(`/api/stocks/${this.state.id}`);
     let balance = await axios.get(`/api/users/${this.state.id}`);
     this.setState({ stocks: data, balance: balance.data.balance });
-  }
+    this.interval = setInterval(async () => {
+      for (let i = 0; i < this.state.stocks.length; i++) {
+        let currentStock = this.state.stocks[i];
+        let { ticker, quantity } = currentStock;
+        let { data } = await axios.get(
+          `https://api.iextrading.com/1.0/stock/${ticker}/book`
+        );
+        let newStock = {
+          ticker,
+          quantity,
+          totalValue: Number(quantity * data.quote.latestPrice)
+        };
+        let copyState = this.state.stocks.slice(0);
+        copyState.forEach((element, index) => {
+          if (element.ticker === newStock.ticker) {
+            copyState[index] = newStock;
+          }
+        });
 
+        this.setState({
+          stocks: copyState
+        });
+      }
+    }, 10000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -88,21 +118,31 @@ export default class Portfolio extends Component {
         <h2>Balance: ${this.state.balance}</h2>
         {this.groupStocks().map(stock => {
           return (
-            <div key={stock.id}>
+            <div key={stock.ticker}>
               <h2>Stock: {stock.ticker}</h2>
               <h2># of shares: {stock.quantity}</h2>
-              <h2>Value: ${stock.totalValue}</h2>
+              <h2>Value: ${stock.totalValue.toFixed(2)}</h2>
             </div>
           );
         })}
         <form onSubmit={this.handleSubmit}>
           <label htmlFor='ticker'>
             Ticker
-            <input type='text' name='ticker' onChange={this.handleChange} />
+            <input
+              type='text'
+              value={this.state.ticker}
+              name='ticker'
+              onChange={this.handleChange}
+            />
           </label>
           <label htmlFor='quantity'>
             Quantity
-            <input type='text' name='quantity' onChange={this.handleChange} />
+            <input
+              type='text'
+              name='quantity'
+              value={this.state.quantity}
+              onChange={this.handleChange}
+            />
           </label>
           <button type='submit'>Buy</button>
         </form>

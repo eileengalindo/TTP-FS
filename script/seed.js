@@ -33,7 +33,7 @@ async function seed() {
 
   const stocks = await Promise.all([
     Stock.create({
-      ticker: 'APPL',
+      ticker: 'AAPL',
       quantity: 100,
       action: 'buy',
       totalValue: 19571,
