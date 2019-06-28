@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 export default class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      user: {}
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,8 +24,8 @@ export default class LoginForm extends Component {
 
   handleSubmit = async event => {
     event.preventDefault();
-    let { email } = this.state;
-    let { data } = await axios.post('/api/users/login', { email: email });
+    let { email, password } = this.state;
+    let { data } = await axios.post('/api/users/login', { email, password });
     this.setState({ user: data });
     localStorage.setItem('id', data.id);
     history.push('/portfolio');
@@ -32,27 +33,31 @@ export default class LoginForm extends Component {
 
   render() {
     return (
-      <div className='Login'>
+      <div className='login-form'>
+        <h2>Welcome Back!</h2>
+        <h2>Use the login in form below to access your account</h2>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor='email'>
-            email
-            <input
-              type='text'
-              name='email'
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label htmlFor='password'>
-            password
-            <input
-              type='password'
-              name='password'
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </label>
-          <button type='submit'>log in</button>
+          <TextField
+            label='E-mail'
+            name='email'
+            type='text'
+            value={this.state.email}
+            onChange={this.handleChange}
+            margin='normal'
+          />
+          <br />
+          <TextField
+            label='Password'
+            name='password'
+            type='text'
+            value={this.state.password}
+            onChange={this.handleChange}
+            margin='normal'
+          />
+          <br />
+          <Button variant='contained' type='submit' color='primary'>
+            Log In
+          </Button>
         </form>
       </div>
     );

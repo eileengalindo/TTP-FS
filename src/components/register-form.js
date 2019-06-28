@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import history from '../history';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 export default class registerForm extends Component {
   constructor(props) {
     super(props);
@@ -24,58 +27,58 @@ export default class registerForm extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     let { firstName, lastName, email, password } = this.state;
-    console.log('firstname', firstName);
-    let { data } = await axios.post('/api/users/register', {
+    await axios.post('/api/users/register', {
       firstName,
       lastName,
       email,
       password
     });
-    console.log(data);
     history.push('/home');
   };
 
   render() {
     return (
-      <div className='Login'>
+      <div className='register-form'>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor='text'>
-            First Name
-            <input
-              type='text'
-              name='firstName'
-              value={this.state.firstName}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label htmlFor='text'>
-            Last Name
-            <input
-              type='text'
-              name='lastName'
-              value={this.state.lastName}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label htmlFor='email'>
-            email
-            <input
-              type='text'
-              name='email'
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label htmlFor='password'>
-            password
-            <input
-              type='password'
-              name='password'
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </label>
-          <button type='submit'>Register</button>
+          <TextField
+            label='First Name'
+            name='firstName'
+            type='text'
+            value={this.state.firstName}
+            onChange={this.handleChange}
+            margin='normal'
+          />
+          <br />
+          <TextField
+            label='Last Name'
+            name='lastName'
+            type='text'
+            value={this.state.lastName}
+            onChange={this.handleChange}
+            margin='normal'
+          />
+          <br />
+          <TextField
+            label='E-mail'
+            name='email'
+            type='text'
+            value={this.state.email}
+            onChange={this.handleChange}
+            margin='normal'
+          />
+          <br />
+          <TextField
+            label='Password'
+            name='password'
+            type='text'
+            value={this.state.password}
+            onChange={this.handleChange}
+            margin='normal'
+          />
+          <br />
+          <Button variant='contained' type='submit' color='primary'>
+            Register
+          </Button>
         </form>
       </div>
     );

@@ -7,7 +7,8 @@ router.get('/:id', async (req, res, next) => {
     let stocks = await Stock.findAll({
       where: {
         userId: req.params.id
-      }
+      },
+      order: [['updatedAt', 'DESC']]
     });
     res.json(stocks);
   } catch (error) {

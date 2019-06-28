@@ -29,6 +29,13 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
+router.post('/logout', (req, res) => {
+  req.logout();
+  req.session.destroy();
+
+  // res.redirect('/home');
+});
+
 router.get('/:id', async (req, res, next) => {
   try {
     let user = await User.findOne({

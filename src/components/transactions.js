@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import { dateFormat } from './helper-functions/date-format';
 
 export default class Transactions extends Component {
   constructor(props) {
@@ -13,19 +20,42 @@ export default class Transactions extends Component {
   async componentDidMount() {
     let { data } = await axios.get(`/api/stocks/${this.state.id}`);
     this.setState({ stocks: data });
+    console.log('orders', this.state.stocks);
   }
   render() {
     return (
-      <div>
-        {this.state.stocks.map(stock => {
-          return (
-            <div key={stock.id}>
-              <h2>Stock: {stock.ticker}</h2>
-              <h2># of shares: {stock.quantity}</h2>
-              <h2>Price: ${stock.totalValue / stock.quantity}</h2>
-            </div>
-          );
-        })}
+      <div className='transactions-container'>
+        <h1 align='center'>Transactions</h1>
+        <Paper>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell align='center'>Date</TableCell>
+                <TableCell align='center'>Ticker</TableCell>
+                <TableCell align='center'># of Shares</TableCell>
+                <TableCell align='center'>Price per Share</TableCell>
+              </TableRow>
+            </TableHead>
+            {this.state.stocks.map(stock => {
+              return (
+                <TableBody>
+                  <TableRow key={stock.id}>
+                    <TableCell component='th' scope='stock' align='center'>
+                      {dateFormat(stock.createdAt)}
+                    </TableCell>
+                    <TableCell component='th' scope='stock' align='center'>
+                      {stock.ticker}
+                    </TableCell>
+                    <TableCell align='center'>{stock.quantity}</TableCell>
+                    <TableCell align='center'>
+                      ${stock.totalValue / stock.quantity}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              );
+            })}
+          </Table>
+        </Paper>
       </div>
     );
   }
