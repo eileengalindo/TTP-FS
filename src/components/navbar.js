@@ -21,7 +21,7 @@ export default class Navbar extends Component {
   onClick = async () => {
     localStorage.removeItem('id');
     this.setState({ id: null });
-    await axios.post('/api/users/logout');
+    await axios.post('/auth/logout');
   };
   render() {
     return (

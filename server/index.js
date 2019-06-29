@@ -36,6 +36,7 @@ app.use(
 app.use(passport.initialize()); // required to initialize passport
 app.use(passport.session()); // required middleware if using persistent sessions
 
+app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
 
 app.use(express.static(path.join(__dirname, '..', 'public')));

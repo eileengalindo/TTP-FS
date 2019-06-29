@@ -27,7 +27,7 @@ export default class registerForm extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     let { firstName, lastName, email, password } = this.state;
-    await axios.post('/api/users/register', {
+    await axios.post('/auth/register', {
       firstName,
       lastName,
       email,

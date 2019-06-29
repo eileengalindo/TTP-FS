@@ -20,7 +20,6 @@ export default class Transactions extends Component {
   async componentDidMount() {
     let { data } = await axios.get(`/api/stocks/${this.state.id}`);
     this.setState({ stocks: data });
-    console.log('orders', this.state.stocks);
   }
   render() {
     return (
@@ -38,8 +37,8 @@ export default class Transactions extends Component {
             </TableHead>
             {this.state.stocks.map(stock => {
               return (
-                <TableBody>
-                  <TableRow key={stock.id}>
+                <TableBody key={stock.id}>
+                  <TableRow>
                     <TableCell component='th' scope='stock' align='center'>
                       {dateFormat(stock.createdAt)}
                     </TableCell>

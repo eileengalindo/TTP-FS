@@ -9,6 +9,7 @@ export default class Routes extends Component {
   render() {
     return (
       <Switch>
+        i
         <Route exact path='/home' component={Home} />
         <Route exact path='/' component={Home} />
         <Route exact path='/login' component={loginForm} />

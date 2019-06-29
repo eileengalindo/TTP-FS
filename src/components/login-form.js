@@ -25,7 +25,7 @@ export default class LoginForm extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     let { email, password } = this.state;
-    let { data } = await axios.post('/api/users/login', { email, password });
+    let { data } = await axios.post('/auth/login', { email, password });
     this.setState({ user: data });
     localStorage.setItem('id', data.id);
     history.push('/portfolio');
