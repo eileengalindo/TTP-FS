@@ -13,7 +13,6 @@ export default class Navbar extends Component {
       id: null
     };
   }
-  // classes = useStyles();
   componentDidMount() {
     let userId = localStorage.getItem('id');
     this.setState({ id: userId });

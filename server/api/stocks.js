@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Stock } = require('../db/models/');
-const { isAuthenticated } = require('./authenticate');
+const isAuthenticated = require('./authenticate');
 module.exports = router;
 
 router.get('/:id', isAuthenticated, async (req, res, next) => {
@@ -15,6 +15,7 @@ router.get('/:id', isAuthenticated, async (req, res, next) => {
       res.json(stocks);
     }
   } catch (error) {
+    console.log('in catchhhh');
     next(error);
   }
 });

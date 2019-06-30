@@ -3,7 +3,6 @@ const isAuthenticated = (req, res, next) => {
     if (req.user) {
       return next();
     } else {
-      console.log('in this route');
       res.redirect(301, '/home');
     }
   } catch (e) {
@@ -11,4 +10,4 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-module.exports = { isAuthenticated };
+module.exports = isAuthenticated;

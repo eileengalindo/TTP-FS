@@ -70,7 +70,7 @@ export default class registerForm extends Component {
           <TextField
             label='Password'
             name='password'
-            type='text'
+            type='password'
             value={this.state.password}
             onChange={this.handleChange}
             margin='normal'
