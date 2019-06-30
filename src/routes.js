@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import loginForm from './components/login-form';
-import registerForm from './components/register-form';
+import LoginForm from './components/login-form';
+import RegisterForm from './components/register-form';
 import Home from './components/home';
 import Transactions from './components/transactions';
 import BuyForm from './components/buy-form';
@@ -12,10 +12,26 @@ export default class Routes extends Component {
       <Switch>
         <Route exact path='/home' component={Home} />
         <Route exact path='/' component={Home} />
-        <Route exact path='/login' component={loginForm} />
-        <Route exact path='/register' component={registerForm} />
-        <Route exact path='/portfolio' component={BuyForm} />
-        <Route exact path='/transactions' component={Transactions} />
+        <Route
+          exact
+          path='/register'
+          render={props => (
+            <RegisterForm {...props} updateUser={this.props.updateUser} />
+          )}
+        />
+        <Route
+          exact
+          path='/login'
+          render={props => (
+            <LoginForm {...props} updateUser={this.props.updateUser} />
+          )}
+        />
+        {this.props.id && (
+          <Switch>
+            <Route exact path='/portfolio' component={BuyForm} />
+            <Route exact path='/transactions' component={Transactions} />
+          </Switch>
+        )}
       </Switch>
     );
   }

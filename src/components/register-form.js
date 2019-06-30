@@ -4,7 +4,7 @@ import history from '../history';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-export default class registerForm extends Component {
+export default class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,13 +27,15 @@ export default class registerForm extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     let { firstName, lastName, email, password } = this.state;
-    await axios.post('/auth/register', {
+    let { data } = await axios.post('/auth/register', {
       firstName,
       lastName,
       email,
       password
     });
-    history.push('/home');
+    this.props.updateUser(data.id);
+    localStorage.setItem('id', data.id);
+    history.push('/portfolio');
   };
 
   render() {

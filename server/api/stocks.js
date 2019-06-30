@@ -15,7 +15,6 @@ router.get('/:id', isAuthenticated, async (req, res, next) => {
       res.json(stocks);
     }
   } catch (error) {
-    console.log('in catchhhh');
     next(error);
   }
 });
