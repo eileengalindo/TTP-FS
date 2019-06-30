@@ -29,8 +29,8 @@ export default class Portfolio extends Component {
                 >
                   Ticker
                 </TableCell>
-                <TableCell align='center'>Total Value</TableCell>
                 <TableCell align='center'># of Shares</TableCell>
+                <TableCell align='center'>Total Value</TableCell>
               </TableRow>
             </TableHead>
             {this.groupStocks().map(stock => {
@@ -46,8 +46,10 @@ export default class Portfolio extends Component {
                       >
                         {stock.ticker}
                       </TableCell>
-                      <TableCell align='center'>${stock.totalValue}</TableCell>
                       <TableCell align='center'>{stock.quantity}</TableCell>
+                      <TableCell align='center' style={{ color: 'red' }}>
+                        ${stock.totalValue.toFixed(2)}
+                      </TableCell>
                     </TableRow>
                   ) : (
                     <TableRow key={stock.ticker}>
@@ -59,10 +61,10 @@ export default class Portfolio extends Component {
                       >
                         {stock.ticker}
                       </TableCell>
-                      <TableCell align='center'>
+                      <TableCell align='center'>{stock.quantity}</TableCell>
+                      <TableCell align='center' style={{ color: 'green' }}>
                         ${stock.totalValue.toFixed(2)}
                       </TableCell>
-                      <TableCell align='center'>{stock.quantity}</TableCell>
                     </TableRow>
                   )}
                 </TableBody>
