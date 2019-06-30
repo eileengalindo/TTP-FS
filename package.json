@@ -9,6 +9,7 @@
     "compression": "^1.7.4",
     "concurrently": "^4.1.0",
     "connect-session-sequelize": "^6.0.0",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
     "lodash": "^4.17.11",
