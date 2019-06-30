@@ -34,10 +34,12 @@ export default class LoginForm extends Component {
   render() {
     return (
       <div>
-        <div className='login-form'>
-          <h2>Welcome Back!</h2>
-          <h2>Use the login in form below to access your account</h2>
-          <form onSubmit={this.handleSubmit}>
+        <div className='login'>
+          <h2 className='login-header'>Welcome Back!</h2>
+          <h2 className='login-sub-header'>
+            Use the login in form below to access your account
+          </h2>
+          <form onSubmit={this.handleSubmit} className='login-form'>
             <TextField
               label='E-mail'
               name='email'

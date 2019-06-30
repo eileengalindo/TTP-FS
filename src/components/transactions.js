@@ -47,7 +47,7 @@ export default class Transactions extends Component {
                     </TableCell>
                     <TableCell align='center'>{stock.quantity}</TableCell>
                     <TableCell align='center'>
-                      ${stock.totalValue / stock.quantity}
+                      ${(stock.totalValue / stock.quantity).toFixed(2)}
                     </TableCell>
                   </TableRow>
                 </TableBody>

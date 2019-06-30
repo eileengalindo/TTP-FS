@@ -36,12 +36,20 @@ code {
 }
 .login-form {
   display: flex;
+  flex-direction: column;
+}
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+.login {
+  display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
 }
 
-.register-form {
+.register {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -50,4 +58,60 @@ code {
 
 .MuiToolbar-root {
   justify-content: right;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-header {
+  color: #3f51b5;
+  font-size: 3em;
+  text-align: center;
+  padding: 10px;
+}
+
+#description {
+  font-size: 2em;
+}
+.MuiButton-containedPrimary {
+  margin: 10px !important;
+}
+
+.login-header {
+  color: #3f51b5;
+  font-size: 3em;
+  text-align: center;
+  padding: 5px;
+}
+
+.login-sub-header {
+  color: #3f51b5;
+  font-size: 1.5em;
+}
+.register-form-header {
+  color: #3f51b5;
+  font-size: 3em;
+  text-align: center;
+  padding: 5px;
+}
+.register-form-subheader {
+  color: #3f51b5;
+  font-size: 1.5em;
 }
