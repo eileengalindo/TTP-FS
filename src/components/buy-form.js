@@ -3,6 +3,7 @@ import axios from 'axios';
 import Portfolio from './portfolio';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import updatePrice from './helper-functions/update-price';
 
 export default class BuyForm extends Component {
   constructor(props) {
@@ -16,41 +17,14 @@ export default class BuyForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updatePrice = updatePrice.bind(this);
   }
 
   async componentDidMount() {
     let { data } = await axios.get(`/api/stocks/${this.state.id}`);
     let balance = await axios.get(`/api/users/${this.state.id}`);
     this.setState({ stocks: data, balance: balance.data.balance });
-
-    this.interval = setInterval(async () => {
-      for (let i = 0; i < this.state.stocks.length; i++) {
-        let currentStock = this.state.stocks[i];
-        let { ticker, quantity } = currentStock;
-        let { data } = await axios.get(
-          `https://api.iextrading.com/1.0/stock/${ticker}/book`
-        );
-
-        let newStock = {
-          ticker,
-          quantity,
-          totalValue: Number(quantity * data.quote.latestPrice),
-          openPrice: data.quote.open,
-          latestPrice: data.quote.latestPrice
-        };
-        let copyState = this.state.stocks.slice(0);
-        let newArr = copyState.map((element, index) => {
-          if (element.ticker === newStock.ticker) {
-            return (copyState[index] = newStock);
-          } else {
-            return (copyState[index] = element);
-          }
-        });
-        this.setState({
-          stocks: newArr
-        });
-      }
-    }, 10000);
+    this.interval = setInterval(this.updatePrice, 1000);
   }
 
   componentWillUnmount() {
