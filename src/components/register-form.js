@@ -43,7 +43,7 @@ export default class RegisterForm extends Component {
       <div className='register'>
         <h2 className='register-form-header'>Welcome!</h2>
         <h2 className='register-form-subheader'>
-          Register below to being adding to your portfolio.
+          Register below to begin adding to your portfolio.
         </h2>
         <form onSubmit={this.handleSubmit} className='register-form'>
           <TextField

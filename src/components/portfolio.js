@@ -34,6 +34,7 @@ export default class Portfolio extends Component {
               </TableRow>
             </TableHead>
             {this.groupStocks().map(stock => {
+              console.log('stock in map', stock.ticker, stock.quantity);
               return (
                 <TableBody key={stock.ticker}>
                   {stock.openPrice > stock.latestPrice ? (

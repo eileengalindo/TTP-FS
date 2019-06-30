@@ -1,8 +1,9 @@
 function groupStocks() {
   let returnArr = [];
   let hash = {};
-  for (let i = 0; i < this.props.stocks.length; i++) {
-    let stock = this.props.stocks[i];
+  let a = [...this.props.stocks];
+  for (let i = 0; i < a.length; i++) {
+    let stock = a[i];
     let { quantity, totalValue, ticker, openPrice, latestPrice } = stock;
 
     if (!hash[ticker]) {
@@ -17,10 +18,10 @@ function groupStocks() {
       hash[ticker][1] = newTotalValue;
     }
   }
-
   for (let stock in hash) {
     returnArr.push({
       ticker: stock,
+
       quantity: hash[stock][0],
       totalValue: hash[stock][1],
       openPrice: hash[stock][2],

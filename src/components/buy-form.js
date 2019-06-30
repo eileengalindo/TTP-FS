@@ -45,6 +45,7 @@ export default class BuyForm extends Component {
   };
 
   render() {
+    console.log('props in buy form', this.state.stocks);
     return (
       <div className='portfolio-and-buy'>
         <Portfolio stocks={this.state.stocks} balance={this.state.balance} />
