@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import updatePrice from './helper-functions/update-price';
 import buyFormHandleSubmit from './helper-functions/buy-form-handle-submit';
+import numberWithCommas from './helper-functions/add-commas-to-numbers';
 
 export default class BuyForm extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ export default class BuyForm extends Component {
       quantity: '',
       id: localStorage.getItem('id'),
       stocks: [],
-      balance: 0
+      balance: 0,
+      value: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,8 +26,12 @@ export default class BuyForm extends Component {
 
   async componentDidMount() {
     let { data } = await axios.get(`/api/stocks/${this.state.id}`);
-    let balance = await axios.get(`/api/users/${this.state.id}`);
-    this.setState({ stocks: data, balance: balance.data.balance });
+    let user = await axios.get(`/api/users/${this.state.id}`);
+    this.setState({
+      stocks: data,
+      balance: Number(user.data.balance),
+      value: Number(user.data.portfolioValue)
+    });
     this.interval = setInterval(this.updatePrice, 1000);
   }
 
@@ -45,39 +51,46 @@ export default class BuyForm extends Component {
   };
 
   render() {
-    console.log('props in buy form', this.state.stocks);
     return (
       <div className='portfolio-and-buy'>
-        <Portfolio stocks={this.state.stocks} balance={this.state.balance} />
-        <form onSubmit={this.handleSubmit} className='buy-form'>
-          <TextField
-            label='Ticker'
-            name='ticker'
-            type='text'
-            value={this.state.ticker}
-            onChange={this.handleChange}
-            margin='normal'
-          />
-          <br />
-          <TextField
-            label='Quantity'
-            name='quantity'
-            type='text'
-            value={this.state.quantity}
-            onChange={this.handleChange}
-            margin='normal'
-          />
-          <br />
+        <Portfolio
+          stocks={this.state.stocks}
+          portfolioValue={this.state.value}
+        />
+        <div buy-form-container>
+          <h2 className='buy-form-header'>
+            Cash: ${numberWithCommas(this.state.balance.toFixed(2))}
+          </h2>
+          <form onSubmit={this.handleSubmit} className='buy-form'>
+            <TextField
+              label='Ticker'
+              name='ticker'
+              type='text'
+              value={this.state.ticker}
+              onChange={this.handleChange}
+              margin='normal'
+            />
+            <br />
+            <TextField
+              label='Quantity'
+              name='quantity'
+              type='text'
+              value={this.state.quantity}
+              onChange={this.handleChange}
+              margin='normal'
+            />
+            <br />
 
-          <Button
-            variant='contained'
-            type='submit'
-            color='primary'
-            align='center'
-          >
-            Buy
-          </Button>
-        </form>
+            <Button
+              variant='contained'
+              type='submit'
+              color='primary'
+              align='center'
+            >
+              Buy
+            </Button>
+          </form>
+        </div>
       </div>
     );
   }

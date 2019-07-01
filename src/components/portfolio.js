@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import groupStocks from './helper-functions/group-stocks';
+import numberWithCommas from './helper-functions/add-commas-to-numbers';
 
 export default class Portfolio extends Component {
   constructor(props) {
@@ -16,7 +17,9 @@ export default class Portfolio extends Component {
   render() {
     return (
       <div className='portolfio-container'>
-        <h2 align='center'>Balance: ${this.props.balance}</h2>
+        <h2 align='center' className='portfolio-header'>
+          Portfolio: ${numberWithCommas(this.props.portfolioValue.toFixed(2))}
+        </h2>
         <br />
         <Paper>
           <Table>
@@ -30,11 +33,10 @@ export default class Portfolio extends Component {
                   Ticker
                 </TableCell>
                 <TableCell align='center'># of Shares</TableCell>
-                <TableCell align='center'>Total Value</TableCell>
+                <TableCell align='center'>Value</TableCell>
               </TableRow>
             </TableHead>
             {this.groupStocks().map(stock => {
-              console.log('stock in map', stock.ticker, stock.quantity);
               return (
                 <TableBody key={stock.ticker}>
                   {stock.openPrice > stock.latestPrice ? (
@@ -49,7 +51,7 @@ export default class Portfolio extends Component {
                       </TableCell>
                       <TableCell align='center'>{stock.quantity}</TableCell>
                       <TableCell align='center' style={{ color: 'red' }}>
-                        ${stock.totalValue.toFixed(2)}
+                        ${numberWithCommas(stock.totalValue.toFixed(2))}
                       </TableCell>
                     </TableRow>
                   ) : (
@@ -64,7 +66,7 @@ export default class Portfolio extends Component {
                       </TableCell>
                       <TableCell align='center'>{stock.quantity}</TableCell>
                       <TableCell align='center' style={{ color: 'green' }}>
-                        ${stock.totalValue.toFixed(2)}
+                        ${numberWithCommas(stock.totalValue.toFixed(2))}
                       </TableCell>
                     </TableRow>
                   )}

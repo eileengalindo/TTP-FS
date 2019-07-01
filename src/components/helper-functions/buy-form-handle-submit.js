@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 async function buyFormHandleSubmit() {
-  let { ticker, quantity, balance } = this.state;
+  let { ticker, quantity, balance, value } = this.state;
   ticker = ticker.toUpperCase();
   let { data } = await axios.get(
     `https://api.iextrading.com/1.0/stock/${ticker}/book`
@@ -16,15 +16,17 @@ async function buyFormHandleSubmit() {
     action: 'buy',
     balance
   });
-  let updatedBalance = await axios.put(`/api/users/${this.state.id}`, {
+  let updatedBalanceAndValue = await axios.put(`/api/users/${this.state.id}`, {
     totalPrice,
-    balance
+    balance,
+    value
   });
   newStock.data.openingPrice = openPrice;
   newStock.data.lastestPrice = data.quote.latestPrice;
   this.setState({
     stocks: [...this.state.stocks, newStock.data],
-    balance: updatedBalance.data,
+    balance: Number(updatedBalanceAndValue.data.balance),
+    value: Number(updatedBalanceAndValue.data.portfolioValue),
     ticker: '',
     quantity: ''
   });

@@ -12,21 +12,21 @@ async function seed() {
       lastName: 'Galindo',
       email: 'galindo.eileen@gmail.com',
       password: '123456',
-      isAdmin: false
+      portfolioValue: 20000.0
     }),
     User.create({
       firstName: 'Henry',
       lastName: 'Rodes',
       email: 'rodes.henry@gmail.com',
       password: '123456',
-      isAdmin: false
+      portfolioValue: 20000.0
     }),
     User.create({
       firstName: 'Lisa',
       lastName: 'Wallow',
       email: 'wallow.lisa@gmail.com',
       password: '123456',
-      isAdmin: false
+      portfolioValue: 20000.0
     })
   ]);
   console.log(`seeded ${users.length} users`);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 async function updatePrice() {
+  let portfolioValue = 0;
   let newArr = [];
   for (let i = 0; i < this.state.stocks.length; i++) {
     let currentStock = this.state.stocks[i];
@@ -16,10 +17,12 @@ async function updatePrice() {
       openPrice: data.quote.open,
       latestPrice: data.quote.latestPrice
     };
+    portfolioValue += Number(quantity * data.quote.latestPrice);
     newArr.push(newStock);
   }
   this.setState({
-    stocks: newArr
+    stocks: newArr,
+    value: portfolioValue
   });
 }
 

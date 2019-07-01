@@ -36,7 +36,11 @@ router.put('/:id', async (req, res, next) => {
   try {
     if (req.body.balance > req.body.totalPrice) {
       let updatedUser = await User.update(
-        { balance: req.body.balance - req.body.totalPrice },
+        {
+          balance: req.body.balance - req.body.totalPrice,
+          portfolioValue: req.body.value + req.body.totalPrice
+        },
+
         {
           returning: true,
           where: {
@@ -44,7 +48,10 @@ router.put('/:id', async (req, res, next) => {
           }
         }
       );
-      res.json(updatedUser[1][0].dataValues.balance);
+      res.json({
+        balance: updatedUser[1][0].dataValues.balance,
+        portfolioValue: updatedUser[1][0].portfolioValue
+      });
     } else {
       res.status(400).send('Current balance is too low');
     }

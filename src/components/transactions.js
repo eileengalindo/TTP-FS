@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { dateFormat } from './helper-functions/date-format';
+import numberWithCommas from './helper-functions/add-commas-to-numbers';
 
 export default class Transactions extends Component {
   constructor(props) {
@@ -47,7 +48,10 @@ export default class Transactions extends Component {
                     </TableCell>
                     <TableCell align='center'>{stock.quantity}</TableCell>
                     <TableCell align='center'>
-                      ${(stock.totalValue / stock.quantity).toFixed(2)}
+                      $
+                      {numberWithCommas(
+                        (stock.totalValue / stock.quantity).toFixed(2)
+                      )}
                     </TableCell>
                   </TableRow>
                 </TableBody>

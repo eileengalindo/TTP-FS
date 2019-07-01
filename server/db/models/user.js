@@ -35,8 +35,9 @@ const User = db.define('user', {
     type: Sequelize.DECIMAL(10, 2),
     defaultValue: 5000.0
   },
-  isAdmin: {
-    type: Sequelize.BOOLEAN
+  portfolioValue: {
+    type: Sequelize.DECIMAL(10, 2),
+    defaultValue: 0.0
   }
 });
 

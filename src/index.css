@@ -28,7 +28,7 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .buy-form {
@@ -113,6 +113,19 @@ code {
   padding: 5px;
 }
 .register-form-subheader {
+  color: #3f51b5;
+  font-size: 1.5em;
+}
+
+.buy-form-container {
+  display: flex;
+  flex-direction: column;
+}
+.buy-form-header {
+  color: #3f51b5;
+  font-size: 1.5em;
+}
+.portfolio-header {
   color: #3f51b5;
   font-size: 1.5em;
 }
