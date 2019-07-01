@@ -24,7 +24,11 @@ export default class Navbar extends Component {
           <div style={{ flewGrow: 1 }}>
             <AppBar position='static'>
               <Toolbar>
-                <Typography variant='h6' style={{ flewGrow: 1 }}>
+                <Typography
+                  color='inherit'
+                  variant='h4'
+                  style={{ flewGrow: 1 }}
+                >
                   Capito
                 </Typography>
                 <Button
@@ -55,7 +59,11 @@ export default class Navbar extends Component {
           <div style={{ flewGrow: 1 }}>
             <AppBar position='static'>
               <Toolbar>
-                <Typography variant='h6' style={{ flewGrow: 1 }}>
+                <Typography
+                  color='inherit'
+                  variant='h4'
+                  style={{ flewGrow: 1 }}
+                >
                   Capito
                 </Typography>
                 <Button

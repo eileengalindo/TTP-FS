@@ -25,7 +25,9 @@ export default class Transactions extends Component {
   render() {
     return (
       <div className='transactions-container'>
-        <h1 align='center'>Transactions</h1>
+        <h1 align='center' className='transactions-header'>
+          Transactions
+        </h1>
         <Paper>
           <Table>
             <TableHead>
