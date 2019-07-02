@@ -4,7 +4,6 @@ const Stock = require('../server/db/models/stocks');
 
 async function seed() {
   await db.sync({ force: true });
-  console.log('in seed function');
 
   const users = await Promise.all([
     User.create({
@@ -29,7 +28,6 @@ async function seed() {
       portfolioValue: 20000.0
     })
   ]);
-  console.log(`seeded ${users.length} users`);
 
   const stocks = await Promise.all([
     Stock.create({
@@ -54,21 +52,16 @@ async function seed() {
       userId: 2
     })
   ]);
-
-  console.log(`seeded ${stocks.length} stocks`);
 }
 
 async function runSeed() {
-  console.log('seeding...');
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log('closing db connection');
     await db.close();
-    console.log('db connection closed');
   }
 }
 

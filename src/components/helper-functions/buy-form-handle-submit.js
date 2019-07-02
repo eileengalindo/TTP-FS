@@ -2,7 +2,6 @@ import axios from 'axios';
 
 async function buyFormHandleSubmit() {
   try {
-    console.log('in buy form handle submit');
     let { ticker, quantity, balance, value } = this.state;
     ticker = ticker.toUpperCase();
     let { data } = await axios.get(
