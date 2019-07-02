@@ -11,7 +11,8 @@ export default class RegisterForm extends Component {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      error: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -25,17 +26,23 @@ export default class RegisterForm extends Component {
   };
 
   handleSubmit = async event => {
-    event.preventDefault();
-    let { firstName, lastName, email, password } = this.state;
-    let { data } = await axios.post('/auth/register', {
-      firstName,
-      lastName,
-      email,
-      password
-    });
-    this.props.updateUser(data.id);
-    localStorage.setItem('id', data.id);
-    history.push('/portfolio');
+    try {
+      event.preventDefault();
+      let { firstName, lastName, email, password } = this.state;
+      let { data } = await axios.post('/auth/register', {
+        firstName,
+        lastName,
+        email,
+        password
+      });
+      this.props.updateUser(data.id);
+      localStorage.setItem('id', data.id);
+      history.push('/portfolio');
+    } catch (error) {
+      this.setState({
+        error: error
+      });
+    }
   };
 
   render() {
@@ -86,6 +93,9 @@ export default class RegisterForm extends Component {
             Register
           </Button>
         </form>
+        {this.state.error && this.state.error.response && (
+          <h1 className='register-error'>{this.state.error.response.data} </h1>
+        )}
       </div>
     );
   }
