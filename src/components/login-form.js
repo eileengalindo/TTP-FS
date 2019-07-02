@@ -8,7 +8,8 @@ export default class LoginForm extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -22,13 +23,19 @@ export default class LoginForm extends Component {
   };
 
   handleSubmit = async event => {
-    event.preventDefault();
-    let { email, password } = this.state;
-    let { data } = await axios.post('/auth/login', { email, password });
-    this.setState({ user: data });
-    this.props.updateUser(data.id);
-    localStorage.setItem('id', data.id);
-    history.push('/portfolio');
+    try {
+      event.preventDefault();
+      let { email, password } = this.state;
+      let { data } = await axios.post('/auth/login', { email, password });
+      this.setState({ user: data });
+      this.props.updateUser(data.id);
+      localStorage.setItem('id', data.id);
+      history.push('/portfolio');
+    } catch (error) {
+      this.setState({
+        error: error
+      });
+    }
   };
 
   render() {
@@ -62,6 +69,9 @@ export default class LoginForm extends Component {
               Log In
             </Button>
           </form>
+          {this.state.error && this.state.error.response && (
+            <h1 className='login-error'>{this.state.error.response.data} </h1>
+          )}
         </div>
       </div>
     );
