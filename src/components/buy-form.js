@@ -15,7 +15,8 @@ export default class BuyForm extends Component {
       quantity: '',
       stocks: [],
       balance: 0,
-      value: 0
+      value: 0,
+      error: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -60,7 +61,7 @@ export default class BuyForm extends Component {
           <h2 className='buy-form-header'>
             Cash: ${numberWithCommas(this.state.balance.toFixed(2))}
           </h2>
-          <form onSubmit={this.handleSubmit} className='buy-form'>
+          <form onSubmit={this.handleSubmit} id='buy-form'>
             <TextField
               label='Ticker'
               name='ticker'
@@ -88,6 +89,9 @@ export default class BuyForm extends Component {
             >
               Buy
             </Button>
+            {this.state.error && this.state.error.response && (
+              <h1 className='error'>{this.state.error.response.data} </h1>
+            )}
           </form>
         </div>
       </div>

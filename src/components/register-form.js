@@ -94,7 +94,7 @@ export default class RegisterForm extends Component {
           </Button>
         </form>
         {this.state.error && this.state.error.response && (
-          <h1 className='register-error'>{this.state.error.response.data} </h1>
+          <h1 className='error'>{this.state.error.response.data} </h1>
         )}
       </div>
     );

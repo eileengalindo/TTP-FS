@@ -26,6 +26,8 @@ router.post('/:id', async (req, res, next) => {
         userId: req.params.id
       });
       res.json(stock);
+    } else {
+      res.status(401).send('Insufficient cash');
     }
   } catch (error) {
     next(error);

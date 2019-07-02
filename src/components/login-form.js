@@ -70,7 +70,7 @@ export default class LoginForm extends Component {
             </Button>
           </form>
           {this.state.error && this.state.error.response && (
-            <h1 className='login-error'>{this.state.error.response.data} </h1>
+            <h1 className='error'>{this.state.error.response.data} </h1>
           )}
         </div>
       </div>

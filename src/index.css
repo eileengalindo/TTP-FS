@@ -31,7 +31,7 @@ code {
   align-items: flex-start;
 }
 
-.buy-form {
+#buy-form {
   display: flex;
   flex-direction: column;
 }
@@ -133,11 +133,7 @@ code {
   color: #3f51b5;
   font-size: 3em;
 }
-.login-error {
-  color: #3f51b5;
-  font-size: 1.5em;
-}
-.register-error {
+.error {
   color: #3f51b5;
   font-size: 1.5em;
 }
