@@ -9,14 +9,14 @@ async function buyFormHandleSubmit() {
   let stockPrice = data.quote.latestPrice;
   let openPrice = data.quote.open;
   let totalPrice = Number(quantity * stockPrice);
-  let newStock = await axios.post(`/api/users/${this.state.id}`, {
+  let newStock = await axios.post(`/api/users/${this.props.id}`, {
     ticker,
     quantity,
     totalPrice,
     action: 'buy',
     balance
   });
-  let updatedBalanceAndValue = await axios.put(`/api/users/${this.state.id}`, {
+  let updatedBalanceAndValue = await axios.put(`/api/users/${this.props.id}`, {
     totalPrice,
     balance,
     value

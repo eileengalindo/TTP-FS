@@ -7,11 +7,6 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export default class Navbar extends Component {
-  componentDidMount() {
-    let userId = localStorage.getItem('id');
-    this.setState({ id: userId });
-  }
-
   onClick = async () => {
     localStorage.removeItem('id');
     this.props.updateUser(null);

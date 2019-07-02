@@ -13,13 +13,12 @@ export default class Transactions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stocks: [],
-      id: localStorage.getItem('id')
+      stocks: []
     };
   }
 
   async componentDidMount() {
-    let { data } = await axios.get(`/api/stocks/${this.state.id}`);
+    let { data } = await axios.get(`/api/stocks/${this.props.id}`);
     this.setState({ stocks: data });
   }
   render() {

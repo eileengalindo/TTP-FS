@@ -28,8 +28,16 @@ export default class Routes extends Component {
         />
         {this.props.id && (
           <Switch>
-            <Route exact path='/portfolio' component={BuyForm} />
-            <Route exact path='/transactions' component={Transactions} />
+            <Route
+              exact
+              path='/portfolio'
+              render={props => <BuyForm {...props} id={this.props.id} />}
+            />
+            <Route
+              exact
+              path='/transactions'
+              render={props => <Transactions {...props} id={this.props.id} />}
+            />
           </Switch>
         )}
       </Switch>

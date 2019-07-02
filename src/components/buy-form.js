@@ -13,7 +13,6 @@ export default class BuyForm extends Component {
     this.state = {
       ticker: '',
       quantity: '',
-      id: localStorage.getItem('id'),
       stocks: [],
       balance: 0,
       value: 0
@@ -25,8 +24,8 @@ export default class BuyForm extends Component {
   }
 
   async componentDidMount() {
-    let { data } = await axios.get(`/api/stocks/${this.state.id}`);
-    let user = await axios.get(`/api/users/${this.state.id}`);
+    let { data } = await axios.get(`/api/stocks/${this.props.id}`);
+    let user = await axios.get(`/api/users/${this.props.id}`);
     this.setState({
       stocks: data,
       balance: Number(user.data.balance),
