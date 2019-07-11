@@ -8,6 +8,12 @@ Capito is an application that allows users to buy stocks and keep track of their
 ![Image of myProject](/public/assets/portfolio.png)
 ![Image of myProject](/public/assets/transactions.png)
 
+# Getting Started
+To run the app on your local device:
+* Clone to your device
+* Npm install
+* Npm run dev
+
 # Technologies Used
 
 * React
