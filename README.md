@@ -17,3 +17,4 @@ Capito is an application that allows users to buy stocks and keep track of their
 * Express
 * Sequelize
 * PostgreSQL
+* IEX API
